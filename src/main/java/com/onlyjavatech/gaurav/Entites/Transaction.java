@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.onlyjavatech.gaurav.Entites.User;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Transaction {
@@ -12,6 +13,7 @@ public class Transaction {
     int t_id;
     boolean debitorcredit; // true means it is a Debit and false means it is a Credit
     int amount;
+    Date date;
     @ManyToOne
     @JoinColumn(name = "user_id")
     @JsonIgnore
@@ -20,9 +22,10 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(boolean debitorcredit, int amount, User user) {
+    public Transaction(boolean debitorcredit, int amount, Date date, User user) {
         this.debitorcredit = debitorcredit;
         this.amount = amount;
+        this.date = date;
         this.user = user;
     }
 
@@ -58,12 +61,21 @@ public class Transaction {
         this.user = user;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
                 "t_id=" + t_id +
                 ", debitorcredit=" + debitorcredit +
                 ", amount=" + amount +
+                ", date=" + date +
                 ", user=" + user +
                 '}';
     }
